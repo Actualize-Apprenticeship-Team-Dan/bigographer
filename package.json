@@ -1,0 +1,10 @@
+{
+  "name": "bigographer",
+  "private": true,
+  "dependencies": {
+    "chartist": "^0.10.1",
+    "v-chartist": "^0.1.5",
+    "vue": "^2.5.13",
+    "vue-d2b": "^1.0.10"
+  }
+}

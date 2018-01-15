@@ -1,0 +1,85 @@
+<!doctype html>
+<html class="no-js" lang="en">
+    <head>
+        <%= csrf_meta_tags %>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Big O Grapher</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <link rel="shortcut icon" href="favicon.ico">
+        <link rel="stylesheet" type="text/css" href="_assets/normalize.css">
+        <link rel="stylesheet" type="text/css" href="_assets/wiresphere.css">
+        <link rel="stylesheet" type="text/css" href="_assets/font-awesome-4.5.0/css/font-awesome.css">
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato:400,300,700,900,100">
+        <link rel="stylesheet" type="text/css" href="custom.css">
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    </head>
+    <body>
+    <div class="preloader" id="preloader">
+      <svg style="" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 257.7 223.2" xml:space="preserve">
+      <g stroke-width="6">
+      <polygon class="st0" points="69.6,214.2 10.4,111.6 69.6,9 188.1,9 247.3,111.6 188.1,214.2 "/>
+      <line class="st0" x1="69.6" y1="9" x2="188.1" y2="214.2"/>
+      <line class="st0" x1="69.6" y1="214.2" x2="188.1" y2="9"/>
+      <line class="st0" x1="10.4" y1="111.6" x2="247.3" y2="111.6"/>
+      </g>
+      </svg>
+    </div>
+    <div class="stage">
+      <div class="backgroundStack" id="backgroundStack">
+        <div class="backgroundStack-solidColor" id="backgroundStack-solidColor"></div>
+        <div class="backgroundStack-pic" id="backgroundStack-pic"></div>
+        <canvas class="backgroundStack-gradient" id="backgroundStack-gradient"></canvas>
+        <div class="backgroundStack-3d" id="backgroundStack-3d"></div>
+        <div class="backgroundStack-noise" id="backgroundStack-noise"></div>
+      </div>
+      <!-- <img src="_pics/logo.png" alt="Wiresphere" class="stage-logo" /> -->
+      <div class="stage-header">
+        <h1>Big O Grapher</h1>
+        <%= yield %>
+        <!-- <h2 id="stage-header-tagline">
+          <span>Under construction</span>
+          <span>The right guys</span>
+          <span>Creative Agency</span>
+          <span>Design geeks</span>
+          <span>Crazy bunch</span>
+        </h2> -->
+      </div>
+      <div id="redCountdown" class="redCountdown"></div>
+      <nav class="stage-nav" id="stage-nav">
+        <ul>
+          <li><a class="nice-link" href="#" data-page="about"><div class="hover"><span></span><span></span><span></span><span></span></div><span>About</span></a></li>
+        </ul>
+      </nav>
+      <div class="content-close" id="content-close"><a class="nice-link" href="#"><div class="hover"><span></span><span></span><span></span><span></span></div><span><i class="fa fa-angle-left"></i></span></a></div>
+      <div class="content" id="content">
+        <div class="wrapper">
+          <h2 class="content-title" id="content-title">About</h2>
+          <div class="content-content content-content--about" id="content-content--about">
+            <div class="content-textwrapper">
+              <p><strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non risus sed sem consequat condimentum tincidunt in lectus.</strong></p>
+              <p>Praesent auctor vitae odio vel facilisis. Sed ut lacus odio. Ut sed risus massa. Suspendisse in venenatis mi, nec feugiat felis. Donec et fringilla odio. Sed dolor sapien, dictum eu odio at, lacinia tincidunt nisl. Donec vel blandit magna, a sagittis tortor. Aliquam quis urna a orci dapibus congue. Curabitur in maximus nisl. Sed lacus lectus, dictum eu nisl hendrerit, eleifend tincidunt nunc. Donec feugiat est ac leo ornare condimentum. Nam sagittis purus at massa lobortis, ut accumsan nunc tincidunt. Pellentesque tempor sapien in molestie auctor. Cras turpis erat, finibus a blandit in, luctus in nulla. Sed nibh massa, auctor at ligula eget, scelerisque suscipit ligula.</p>
+              <p>Curabitur laoreet leo non lorem viverra euismod. Praesent facilisis leo nunc, vitae semper sapien faucibus tristique. Vivamus vehicula lorem et ante ornare, sed egestas lacus tempor. Sed arcu diam, ornare eu molestie a, tempus quis risus. Donec faucibus arcu nec semper placerat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Suspendisse placerat dui sit amet diam fringilla, in ornare augue sagittis. Nunc mi tellus, pulvinar quis efficitur a, euismod at velit. Nam lacinia, lectus rhoncus aliquam mattis, nisl sapien porttitor elit, sed tincidunt purus metus ac turpis. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Phasellus elit nisl, gravida sed ultricies sed, congue et nibh.</p>
+              <p>Donec molestie, lectus sit amet dignissim eleifend, nulla odio pharetra diam, id ornare enim massa sit amet mauris. Proin vitae sapien et nulla eleifend sodales quis sed mi. Pellentesque ultricies lectus nunc, et posuere metus lacinia eget. Proin ut tortor lorem. Aenean luctus sit amet ipsum sed scelerisque. Curabitur vel luctus sem. Maecenas tempus nibh fermentum tincidunt aliquet. Duis varius malesuada sem et volutpat. Curabitur eu dolor ac purus congue maximus. Fusce magna ipsum, dictum vel magna sed, congue finibus nunc. Nullam imperdiet vehicula odio, et fringilla enim elementum a. Nulla at egestas arcu. Morbi vehicula arcu at diam commodo, vel facilisis lectus iaculis. Nunc cursus metus eget turpis pharetra, eu facilisis nunc ornare.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <script src="_assets/jquery-2.2.4.min.js"></script>
+      <script src="config-custom.js"></script>
+      <script src="_assets/three.min.js"></script>
+      <script src="_assets/three.canvas-renderer.min.js"></script>
+      <script src="_assets/three.projector.min.js"></script>
+      <script src="_assets/wiresphere.3danim.js"></script>
+      <script src="_assets/wiresphere.js"></script>
+
+    </body>
+</html>
+

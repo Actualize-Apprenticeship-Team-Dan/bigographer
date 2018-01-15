@@ -1,0 +1,18 @@
+<div id="app">
+  {{ message }}
+
+  <div id="code">
+    <div class="text-container">
+      <textarea rows="10" cols="50" v-model="code">
+      </textarea>
+      <i v-on:click="analyzeCode()" class="material-icons">settings</i>
+    </div>
+
+      
+  </div>
+  <div id="result">
+    <p>Number Of Steps: {{ results }}</p>
+  </div>
+
+  <line-chart :chart-data="chartData" :options="options" width="1000"></line-chart>
+</div>
