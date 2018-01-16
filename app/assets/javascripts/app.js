@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     data: {
       options: {responsive: true, maintainAspectRatio: false},
       message: 'Submit Ruby Code Below',
-      code: '',
+      codes: [''],
       results: [],
       chartData: {
         
@@ -48,6 +48,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
             };
           }.bind(this)
         });
+      },
+      addCodeBox: function() {
+        this.codes.push('');
       }
 
     },
