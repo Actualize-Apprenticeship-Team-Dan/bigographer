@@ -31,19 +31,15 @@ class CodeAnalyzerTest < ActiveSupport::TestCase
      assert_equal true, code_analyzer.code.include?('count += 1')
   end
 
-  test '#add_counters_to_code' do
+  test '#add_counters_to_code - accounts for multiple lines of code' do
      code_analyzer = CodeAnalyzer.new("y+1;\n #Comments\n x+1 #Comment")
      assert_equal true, code_analyzer.code.include?('count += 1')
   end
 
-  # test '#add_counters_to_code' do
-  #    code_analyzer = CodeAnalyzer.new(%Q{Hello number #{3}})
-  #    assert_equal true, code_analyzer.code.include?('count += 1')
-  # end
-
-
-
-
+  test '#add_counters_to_code - includes interpulated comment' do
+     code_analyzer = CodeAnalyzer.new('#{Comment}')
+     assert_equal true, code_analyzer.code.include?('count += 1')
+  end
 
   test '#results - returns complete graph data' do
     code_analyzer = CodeAnalyzer.new("[*].each do |number|\nnumber\nend")

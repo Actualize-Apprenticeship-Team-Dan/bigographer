@@ -45,7 +45,10 @@ class CodeAnalyzer
   def add_counters_to_code!
     new_code = "count = 0\n"
     @code.each_line do |line|
-      new_code += "#{line}\n" unless line.index('#') == 0
+      new_code += "#{line}\n" 
+      if line.index('#') == 0 && line.index('{') != 1
+        break
+      end
       new_code += "count += 1\n" 
     end
     new_code += "count"
