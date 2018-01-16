@@ -23,6 +23,7 @@ class CodeAnalyzerTest < ActiveSupport::TestCase
 
   test '#add_counters_to_code - ignores single comment' do
      code_analyzer = CodeAnalyzer.new("#Comment")
+     p code_analyzer.code
      assert_equal false, code_analyzer.code.include?('count += 1')
   end
 
