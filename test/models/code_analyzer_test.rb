@@ -23,22 +23,22 @@ class CodeAnalyzerTest < ActiveSupport::TestCase
 
   test '#add_counters_to_code - ignores single comment' do
      code_analyzer = CodeAnalyzer.new("#Comment")
-     assert_equal false, code_analyzer.code.include?('count += 1')
+     refute_includes code_analyzer.code, "count += 1"
   end
 
   test '#add_counters_to_code - ignores comments after code' do
      code_analyzer = CodeAnalyzer.new("x+1 #Comment")
-     assert_equal true, code_analyzer.code.include?('count += 1')
+     refute_includes code_analyzer.code, 'count += 1'
   end
 
   test '#add_counters_to_code - accounts for multiple lines of code' do
      code_analyzer = CodeAnalyzer.new("y+1;\n #Comments\n x+1 #Comment")
-     assert_equal true, code_analyzer.code.include?('count += 1')
+     refute_includes code_analyzer.code, 'count += 1'
   end
 
   test '#add_counters_to_code - includes interpulated comment' do
      code_analyzer = CodeAnalyzer.new('#{Comment}')
-     assert_equal true, code_analyzer.code.include?('count += 1')
+     refute_includes code_analyzer.code, 'count += 1'
   end
 
   test '#results - returns complete graph data' do
