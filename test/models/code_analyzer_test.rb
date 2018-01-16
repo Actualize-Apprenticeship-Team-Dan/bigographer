@@ -21,6 +21,30 @@ class CodeAnalyzerTest < ActiveSupport::TestCase
     assert_equal "Error: Code doesn't run!", code_analyzer.run_code('x')
   end
 
+  test '#add_counters_to_code - ignores single comment' do
+     code_analyzer = CodeAnalyzer.new("#Comment")
+     assert_equal false, code_analyzer.code.include?('count += 1')
+  end
+
+  test '#add_counters_to_code - ignores comments after code' do
+     code_analyzer = CodeAnalyzer.new("x+1 #Comment")
+     assert_equal true, code_analyzer.code.include?('count += 1')
+  end
+
+  test '#add_counters_to_code' do
+     code_analyzer = CodeAnalyzer.new("y+1;\n #Comments\n x+1 #Comment")
+     assert_equal true, code_analyzer.code.include?('count += 1')
+  end
+
+  # test '#add_counters_to_code' do
+  #    code_analyzer = CodeAnalyzer.new(%Q{Hello number #{3}})
+  #    assert_equal true, code_analyzer.code.include?('count += 1')
+  # end
+
+
+
+
+
   test '#results - returns complete graph data' do
     code_analyzer = CodeAnalyzer.new("[*].each do |number|\nnumber\nend")
     assert_equal [{x: 100, y: 201}, {x: 500, y: 1001}, {x: 1000, y: 2001}, {x: 1500, y: 3001}, {x: 2000, y: 4001}, {x: 2500, y: 5001}, {x: 3000, y: 6001}], code_analyzer.results
