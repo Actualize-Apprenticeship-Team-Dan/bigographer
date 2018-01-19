@@ -46,10 +46,8 @@ class CodeAnalyzer
     new_code = "count = 0\n"
     @code.each_line do |line|
       new_code += "#{line}\n" 
-      if line.index('#') == 0 && line.index('{') != 1
-        break
-      end
-      new_code += "count += 1\n" 
+      line.strip!
+      new_code += "count += 1\n" unless line.index('#') == 0 && line.index('{') != 1
     end
     new_code += "count"
     @code = new_code
