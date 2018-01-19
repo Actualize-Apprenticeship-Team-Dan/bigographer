@@ -45,11 +45,20 @@ class CodeAnalyzer
   def add_counters_to_code!
     new_code = "count = 0\n"
     @code.each_line do |line|
-      new_code += "#{line}\n"
-      new_code += "count += 1\n"
+      new_code += "#{line}\n" 
+      new_code += "count += 1\n" unless is_comment?(line)
     end
     new_code += "count"
     @code = new_code
+  end
+
+  # 'is_comment?' strips the lines of dead spaces in the beginning of the line, then checks if the line
+  # starts wtih a '#'. If it does, it checks the next thingy to see if its '{' to know if the line is a
+  # comment or interpulated code
+
+  def is_comment?(line)
+    line.strip!
+    line.index('#') == 0 && line.index('{') != 1
   end
 
 end
