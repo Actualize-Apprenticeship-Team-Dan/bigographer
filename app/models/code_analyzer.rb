@@ -19,10 +19,12 @@ class CodeAnalyzer
     if @code.index("[*]")
       [100, 500, 1000, 1500, 2000, 2500, 3000].each do |data|
         @graph_data << {x: data, y: run_code(@code.gsub("[*]", "#{(1..data).to_a}"))}
+    p @code
       end
     elsif @code.index("***")
       [100, 500, 1000, 1500, 2000, 2500, 3000].each do |data|
         @graph_data << {x: data, y: run_code(@code.gsub("***", "#{(data)}"))}
+    p @code
       end
     end
 
@@ -35,7 +37,6 @@ class CodeAnalyzer
 
   def run_code(code)
     begin
-      puts code
       return eval(code)
     rescue
       return "Error: Code doesn't run!"
