@@ -42,6 +42,15 @@ class CodeAnalyzer
   # a simplistic algorithm, and that is to set a 'count' variable before the code begins, and then
   # increment count after each line of code runs.
 
+  def get_o_notation
+    o = ""
+    step1 = @graph_data[2][:y] - @graph_data[1][:y]
+    step2 = @graph_data[3][:y] - @graph_data[2][:y]
+    if step1 == step2
+      "O(log n)"
+    end
+  end
+
   def add_counters_to_code!
     new_code = "count = 0\n"
     @code.each_line do |line|

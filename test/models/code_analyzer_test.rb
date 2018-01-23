@@ -25,4 +25,9 @@ class CodeAnalyzerTest < ActiveSupport::TestCase
     code_analyzer = CodeAnalyzer.new("[*].each do |number|\nnumber\nend")
     assert_equal [{x: 100, y: 201}, {x: 500, y: 1001}, {x: 1000, y: 2001}, {x: 1500, y: 3001}, {x: 2000, y: 4001}, {x: 2500, y: 5001}, {x: 3000, y: 6001}], code_analyzer.results
   end
+
+  test '#get_o_notation returns o notation' do
+    code_analyzer = CodeAnalyzer.new("[*].each do |number| \nnumber\nend")
+    assert_equal "o(n)", code_analyzer.get_o_notation
+  end
 end
