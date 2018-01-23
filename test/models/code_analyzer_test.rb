@@ -50,4 +50,20 @@ class CodeAnalyzerTest < ActiveSupport::TestCase
     code_analyzer = CodeAnalyzer.new("[*].each do |number|\nnumber\nend")
     assert_equal [{x: 100, y: 201}, {x: 500, y: 1001}, {x: 1000, y: 2001}, {x: 1500, y: 3001}, {x: 2000, y: 4001}, {x: 2500, y: 5001}, {x: 3000, y: 6001}], code_analyzer.results
   end
+
+  test '#results(times) - returns complete graph data for integer' do
+    code_analyzer = CodeAnalyzer.new("***.times do \n'orange'\nend")
+    assert_equal [{x: 100, y: 201}, {x: 500, y: 1001}, {x: 1000, y: 2001}, {x: 1500, y: 3001}, {x: 2000, y: 4001}, {x: 2500, y: 5001}, {x: 3000, y: 6001}], code_analyzer.results
+  end
+
+  test '#results(times) - returns complete graph data for 2 seperated lines of code' do
+    code_analyzer = CodeAnalyzer.new("***.times do \n'orange'\n'green'\nend")
+    assert_equal [{x: 100, y: 301}, {x: 500, y: 1501}, {x: 1000, y: 3001}, {x: 1500, y: 4501}, {x: 2000, y: 6001}, {x: 2500, y: 7501}, {x: 3000, y: 9001}], code_analyzer.results
+  end
+
+  test '#results(times) - return complete graph data for nested loop' do
+    code_analyzer = CodeAnalyzer.new("***.times do \n***.times do\n'orange'\nend\nend")
+    assert_equal [{ x: 100, y: 20201 }, { x: 500, y: 501001 }, { x: 1000, y: 2002001 }, { x: 1500, y: 4503001 }, { x: 2000, y: 8004001 }, { x: 2500, y: 12505001 }, { x: 3000, y: 18006001 }], code_analyzer.results
+  end
+
 end
