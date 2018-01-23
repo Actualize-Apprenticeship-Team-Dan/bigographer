@@ -41,8 +41,4 @@ class CodeAnalyzerTest < ActiveSupport::TestCase
     assert_equal [{ x: 100, y: 20201 }, { x: 500, y: 501001 }, { x: 1000, y: 2002001 }, { x: 1500, y: 4503001 }, { x: 2000, y: 8004001 }, { x: 2500, y: 12505001 }, { x: 3000, y: 18006001 }], code_analyzer.results
   end
 
-  # test '#results(times(each)) - return complete graph data for each loop within times loop' do
-  #   code_analyzer = CodeAnalyzer.new("***.times do \n[*].each do |num|\nnum\nend\nend")
-  #   assert_equal [{ x: 100, y: 20201 }, { x: 500, y: 501001 }, { x: 1000, y: 2002001 }, { x: 1500, y: 4503001 }, { x: 2000, y: 8004001 }, { x: 2500, y: 12505001 }, { x: 3000, y: 18006001 }], code_analyzer.results
-  # end
 end
