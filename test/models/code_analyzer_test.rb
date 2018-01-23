@@ -53,7 +53,8 @@ class CodeAnalyzerTest < ActiveSupport::TestCase
 
   test '#get_o_notation returns o notation' do
     code_analyzer = CodeAnalyzer.new("[*].each do |number| \nnumber\nend")
-    assert_equal "o(n)", code_analyzer.get_o_notation
+    code_analyzer.results
+    assert_equal "o(1)", code_analyzer.get_o_notation
   end
 
   test '#results(times) - returns complete graph data for integer' do
