@@ -2,10 +2,13 @@ class CodeAnalyzer
 
   attr_reader :codes, :graph_data
   
-  def initialize(codes=[''])
-    @codes = codes.split(',')
-    add_counters_to_code!
-    @graph_data = []
+  def initialize(codes = nil)
+    # puts codes
+    if codes
+      @codes = codes.split(',')
+      add_counters_to_code!
+      @graph_data = []
+    end
   end
 
   # The 'results' method is the brains behind the time complexity analysis.
@@ -16,17 +19,22 @@ class CodeAnalyzer
   # and y indicates the number of steps it takes for the code to actually run.
 
   def results
-    @codes.each do |code|
-      graph_data = []
-      if code.index("[*]")
-        [100, 500, 1000, 1500, 2000, 2500, 3000].each do |data|
-          graph_data << {x: data, y: run_code(code.gsub("[*]", "#{(1..data).to_a}"))}
+    # puts @codes
+    if @codes
+      @codes.each do |code|
+        graph_data = []
+        if code.index("[*]")
+          [100, 500, 1000, 1500, 2000, 2500, 3000].each do |data|
+            graph_data << {x: data, y: run_code(code.gsub("[*]", "#{(1..data).to_a}"))}
+          end
         end
+        @graph_data << graph_data
       end
-      @graph_data << graph_data
+      p @graph_data
+      return @graph_data
+    else
+      return []
     end
-    p @graph_data
-    return @graph_data
   end
 
 
@@ -48,15 +56,17 @@ class CodeAnalyzer
 
   def add_counters_to_code!
     temp_codes = []
-    @codes.each do |code|
-      new_code = "count = 0\n"
-      code.each_line do |line|
-        new_code += "#{line}\n"
-        new_code += "count += 1\n"
+    if @codes
+      @codes.each do |code|
+        new_code = "count = 0\n"
+        code.each_line do |line|
+          new_code += "#{line}\n"
+          new_code += "count += 1\n"
+        end
+        new_code += "count"
+        temp_codes << new_code
       end
-      new_code += "count"
-      temp_codes << new_code
+      @codes = temp_codes
     end
-    @codes = temp_codes
   end
 end
