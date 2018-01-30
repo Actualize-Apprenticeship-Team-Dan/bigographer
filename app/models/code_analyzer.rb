@@ -63,8 +63,8 @@ class CodeAnalyzer
   def get_o_notation
     o = ""
     step1 = @graph_data[1][:y] - @graph_data[0][:y]
-    p step2 = @graph_data[2][:y] - @graph_data[1][:y]
-    p step3 = @graph_data[3][:y] - @graph_data[2][:y]
+    step2 = @graph_data[2][:y] - @graph_data[1][:y]
+    step3 = @graph_data[3][:y] - @graph_data[2][:y]
     if step3 == step2
       o = "o(n)"
     # elsif step2 * 2 == step3 && step2 == step1
@@ -73,10 +73,18 @@ class CodeAnalyzer
     #   o = "o(n)"
     # elsif step2 * 4 == step3 && step1 * 2 == step2
     #   o = "o(n log n)"
-    elsif step2 == step3 - 2 # == step3 && step1 * 4 == step2
+    # x_squared = (graph_data[1][:x])^2
+    # x_cubed = (graph_data[1][:x])^3
+
+    # elsif x_squared <= graph_data[1][:y] && graph_data[1][:y] <=
+    # x_cubed #  == step3 && step1 * 4 == step2
+      # o = "o(n^2)"
+    x = (graph_data[1][:x])^2
+    elsif (@graph_data[1][:x] * graph_data[1][:x]) <= graph_data[1][:y] && graph_data[1][:y] <=
+    (graph_data[1][:x] * graph_data[1][:x] * graph_data[1][:x]) #  == step3 && step1 * 4 == step2
       o = "o(n^2)"
-    # elsif step2 * 4 == step3 && step1 * 8 == step2
-    #   o = "o(n^3)"
+    elsif step2 * 4 == step3 && step1 * 8 == step2
+      o = "o(n^3)"
     end
     o
   end
@@ -102,7 +110,6 @@ class CodeAnalyzer
   # comment or interpulated code
 
   def is_comment?(line)
-    p line
     line.strip!
     line.index('#') == 0 && line.index('{') != 1
   end
