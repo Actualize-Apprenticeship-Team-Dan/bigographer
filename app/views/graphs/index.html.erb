@@ -3,7 +3,7 @@
 
   <div id="code">
     <div class="text-container">
-      <textarea rows="10" cols="50" v-for="(code, index) in codes" v-model="codes[index]">
+      <textarea v-bind:style="{color: colors[index]}" rows="10" cols="50" v-for="(code, index) in codes" v-bind:id="{id: index}" v-model="codes[index]">
       </textarea>
       <i v-on:click="analyzeCode()" class="material-icons">settings</i>
       <i v-on:click="addCodeBox()" class="material-icons">add</i>

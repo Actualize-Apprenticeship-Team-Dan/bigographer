@@ -31,9 +31,15 @@ class CodeAnalyzerTest < ActiveSupport::TestCase
     assert_equal [[{x: 100, y: 201}, {x: 500, y: 1001}, {x: 1000, y: 2001}, {x: 1500, y: 3001}, {x: 2000, y: 4001}, {x: 2500, y: 5001}, {x: 3000, y: 6001}]], code_analyzer.results
   end
 
+  test '#results - returns complete graph data with two inputs' do
+    # skip
+    code_analyzer = CodeAnalyzer.new("[*].each do |number|\nnumber\nend, [*].each do |number|\nnumber\n\nend")
+    assert_equal [[{x: 100, y: 201}, {x: 500, y: 1001}, {x: 1000, y: 2001}, {x: 1500, y: 3001}, {x: 2000, y: 4001}, {x: 2500, y: 5001}, {x: 3000, y: 6001}], [{x: 100, y: 301}, {x: 500, y: 1501}, {x: 1000, y: 3001}, {x: 1500, y: 4501}, {x: 2000, y: 6001}, {x: 2500, y: 7501}, {x: 3000, y: 9001}]], code_analyzer.results
+  end
+
   test '#results - returns complete graph data with multiple inputs' do
     # skip
-    code_analyzer = CodeAnalyzer.new("[*].each do |number|\nnumber\nend, [*].each do |number|\nnumber\n[*].each do |n|\nn\nend\nend")
-    assert_equal [[{x: 100, y: 201}, {x: 500, y: 1001}, {x: 1000, y: 2001}, {x: 1500, y: 3001}, {x: 2000, y: 4001}, {x: 2500, y: 5001}, {x: 3000, y: 6001}], [{x: 100, y: 20301}, {x: 500, y: 501501}, {x: 1000, y: 2003001}, {x: 1500, y: 4504501}, {x: 2000, y: 8006001}, {x: 2500, y: 12507501}, {x: 3000, y: 18009001}]], code_analyzer.results
+    code_analyzer = CodeAnalyzer.new("[*].each do |number|\nnumber\nend, [*].each do |number|\nnumber\n\nend, [*].each do |number|\nnumber\n\n\nend")
+    assert_equal [[{x: 100, y: 201}, {x: 500, y: 1001}, {x: 1000, y: 2001}, {x: 1500, y: 3001}, {x: 2000, y: 4001}, {x: 2500, y: 5001}, {x: 3000, y: 6001}], [{x: 100, y: 301}, {x: 500, y: 1501}, {x: 1000, y: 3001}, {x: 1500, y: 4501}, {x: 2000, y: 6001}, {x: 2500, y: 7501}, {x: 3000, y: 9001}], [{x: 100, y: 401}, {x: 500, y: 2001}, {x: 1000, y: 4001}, {x: 1500, y: 6001}, {x: 2000, y: 8001}, {x: 2500, y: 10001}, {x: 3000, y: 12001}]], code_analyzer.results
   end
 end
