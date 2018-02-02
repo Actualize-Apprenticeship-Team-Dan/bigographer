@@ -15,7 +15,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     data: {
       options: {responsive: true, maintainAspectRatio: false},
       message: 'Submit Ruby Code Below',
-      code: '',
+      codes: [''],
+      colors: ['#f87979'],
       results: [],
       chartData: {
         
@@ -26,30 +27,39 @@ document.addEventListener("DOMContentLoaded", function(event) {
     },
     methods: {
       analyzeCode: function() {
+        var that = this;
         Rails.ajax({
           url: "/api/v1/code",
           type: "POST",
-          data: `code=${this.code}`,
+          data: `codes=${this.codes}`,
           success: function(data) {
             this.results = data.results;
             this.chartData = {
-              labels: data.results.map(point => point.x),
-              datasets: [
-                {
+              labels: data.results[0].map(point => point.x), 
+              datasets: data.results.map(function(result, index) {
+                console.log(index);
+                return {
                   label: 'Number of steps',
-                  borderColor: '#f87979',
-                  backgroundColor: '#f87979',
-                  data: data.results,
+                  borderColor: that.colors[index],
+                  backgroundColor: that.colors[index],
+                  data: result,
                   fill: false,
                   lineTension: 1,
                   cubicInterpolationMode: 'monotone'
-                }
-              ]
+                };
+              })
             };
           }.bind(this)
         });
+      },
+      addCodeBox: function() {
+        this.codes.push('');
+        var rgb = [];
+        for (var i = 0; i < 3; i++) {
+          rgb.push(Math.floor(Math.random() * 255));
+        }
+        this.colors.push('rgb('+ rgb.join(',') +')');
       }
-
     },
     computed: {
 
