@@ -65,16 +65,22 @@ class CodeAnalyzer
     step1 = @graph_data[1][:y] - @graph_data[0][:y]
     p step2 = @graph_data[2][:y] - @graph_data[1][:y]
     p step3 = @graph_data[3][:y] - @graph_data[2][:y]
+    x = @graph_data[2][:x]
+    y = @graph_data[2][:y]
     if step3 == step2
       o = "o(n)"
+    elsif (y / x == x) - 2
+      o = "o(n^2)"
+    elsif (y / x == x^2) - 4
+      o = "o(n^3)"
     # elsif step2 * 2 == step3 && step2 == step1
     #   o = "o(log n)"
     # elsif step2 * 2 == step3 && step1 * 2 == step2
     #   o = "o(n)"
     # elsif step2 * 4 == step3 && step1 * 2 == step2
     #   o = "o(n log n)"
-    elsif step2 == step3 - 2 # == step3 && step1 * 4 == step2
-      o = "o(n^2)"
+    # elsif x^2 == step2 # == step3 && step1 * 4 == step2
+    #   o = "o(n^2)"
     # elsif step2 * 4 == step3 && step1 * 8 == step2
     #   o = "o(n^3)"
     end
@@ -102,7 +108,6 @@ class CodeAnalyzer
   # comment or interpulated code
 
   def is_comment?(line)
-    p line
     line.strip!
     line.index('#') == 0 && line.index('{') != 1
   end
