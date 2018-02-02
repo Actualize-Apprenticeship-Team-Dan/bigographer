@@ -67,7 +67,7 @@ class CodeAnalyzerTest < ActiveSupport::TestCase
     assert_equal "o(n)", code_analyzer.get_o_notation
   end
 
-    test '#get_o_notation returns o(n^2) notation' do
+  test '#get_o_notation returns o(n^2) notation' do
     code_analyzer = CodeAnalyzer.new("[*].each do |number| \n[*].each do |num|\nend\nend")
     code_analyzer.results
     assert_equal "o(n^2)", code_analyzer.get_o_notation
