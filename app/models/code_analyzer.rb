@@ -19,13 +19,16 @@ class CodeAnalyzer
   # and y indicates the number of steps it takes for the code to actually run.
 
   def results
-    # puts @codes
     if @codes
       @codes.each do |code|
         graph_data = []
         if code.index("[*]")
           [100, 500, 1000, 1500, 2000, 2500, 3000].each do |data|
             graph_data << {x: data, y: run_code(code.gsub("[*]", "#{(1..data).to_a}"))}
+          end
+        elsif @code.index("***")
+          [100, 500, 1000, 1500, 2000, 2500, 3000].each do |data|
+            @graph_data << {x: data, y: run_code(@code.gsub("***", "#{(data)}"))}
           end
         end
         @graph_data << graph_data
@@ -61,7 +64,7 @@ class CodeAnalyzer
         new_code = "count = 0\n"
         code.each_line do |line|
           new_code += "#{line}\n"
-          new_code += "count += 1\n"
+          new_code += "count += 1\n" unless is_comment?(line)
         end
         new_code += "count"
         temp_codes << new_code
@@ -69,4 +72,14 @@ class CodeAnalyzer
       @codes = temp_codes
     end
   end
+
+  # 'is_comment?' strips the lines of dead spaces in the beginning of the line, then checks if the line
+  # starts wtih a '#'. If it does, it checks the next thingy to see if its '{' to know if the line is a
+  # comment or interpulated code
+
+  def is_comment?(line)
+    line.strip!
+    line.index('#') == 0 && line.index('{') != 1
+  end
+
 end
