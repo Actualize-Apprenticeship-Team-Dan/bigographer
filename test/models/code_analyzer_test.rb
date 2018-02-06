@@ -64,6 +64,7 @@ class CodeAnalyzerTest < ActiveSupport::TestCase
   test '#get_o_notation returns o(n) notation' do
     code_analyzer = CodeAnalyzer.new("[*].each do |number| \nnumber\nend")
     code_analyzer.results
+    p code_analyzer
     assert_equal "o(n)", code_analyzer.get_o_notation
   end
 

@@ -19,32 +19,6 @@ class CodeAnalyzer
   # and y indicates the number of steps it takes for the code to actually run.
 
   def results
-    ## Cannot run test with each loop within times loop and vice versa
-    # [100, 500, 1000, 1500, 2000, 2500, 3000].each do |data|
-    #   i = 0
-
-    #   while i < @code.length do
-    #     if @code.include? '[*]'
-    #       @code.gsub("[*]", "#{(1..data).to_a}")
-    #     end
-    #     if @code.include? '***'
-    #       @code.gsub("***", "#{(data)}")
-    #     end
-    #     i += 1
-    #   end
-    #     p @code
-    #     @graph_data << {x: data, y: run_code(@code)}
-    # end
-    if @code.index("[*]")
-      [100, 500, 1000, 1500, 2000, 2500, 3000].each do |data|
-        @graph_data << {x: data, y: run_code(@code.gsub("[*]", "#{(1..data).to_a}"))}
-      end
-      get_o_notation
-    elsif @code.index("***")
-      [100, 500, 1000, 1500, 2000, 2500, 3000].each do |data|
-        @graph_data << {x: data, y: run_code(@code.gsub("***", "#{(data)}"))}
-      end
-      get_o_notation
     if @codes
       @codes.each do |code|
         graph_data = []
@@ -80,17 +54,18 @@ class CodeAnalyzer
 
   def get_o_notation
     o = ""
-    step1 = @graph_data[1][:y] - @graph_data[0][:y]
-    p step2 = @graph_data[2][:y] - @graph_data[1][:y]
-    p step3 = @graph_data[3][:y] - @graph_data[2][:y]
-    x = @graph_data[2][:x]
-    y = @graph_data[2][:y]
+    step1 = @graph_data.first[1][:y] - @graph_data.first[0][:y]
+    step2 = @graph_data.first[2][:y] - @graph_data.first[1][:y]
+    step3 = @graph_data.first[3][:y] - @graph_data.first[2][:y]
+    x = @graph_data.first[2][:x]
+    y = @graph_data.first[2][:y]
     if step3 == step2
       o = "o(n)"
-    elsif (y / x == x) - 2
+    elsif (y / x) == x + 2
       o = "o(n^2)"
-    elsif (y / x == x^2) - 4
-      o = "o(n^3)"
+    elsif y >= 1 && x 
+    # elsif (y / x == x^2) - 4
+    #   o = "o(n^3)"
     # elsif step2 * 2 == step3 && step2 == step1
     #   o = "o(log n)"
     # elsif step2 * 2 == step3 && step1 * 2 == step2
