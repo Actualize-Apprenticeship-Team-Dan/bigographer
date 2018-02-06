@@ -79,6 +79,16 @@ class CodeAnalyzer
     end
     o
   end
+  
+  #=== o(log n) equation
+  # n = *
+  # count = 0
+  # if n != 1
+  #   n / 2
+  #   count += 1
+  # end
+
+  "O(log n)" = count
 
   private
   # The 'add_counters_to_code!' method implements our counting of the code's steps. We follow
