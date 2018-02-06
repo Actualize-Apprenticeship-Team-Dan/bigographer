@@ -41,10 +41,17 @@ class CodeAnalyzerTest < ActiveSupport::TestCase
     assert_equal code_analyzer.codes[0].scan(/(count \+= 1)/).count, 2
   end
 
+<<<<<<< HEAD
   test '#add_counters_to_code - includes interpulated comment' do
     code_analyzer = CodeAnalyzer.new('#{interpulated word}')
     assert_includes code_analyzer.codes[0], 'count += 1'
   end
+=======
+  # test '#add_counters_to_code - includes interpulated comment' do
+  #    code_analyzer = CodeAnalyzer.new("#{interpulated word}")
+  #    assert_includes code_analyzer.code, 'count += 1'
+  # end
+>>>>>>> 6d7a6e31e1ba34d177e5da338e293a99e96710cf
 
   test '#results - returns complete graph data' do
     code_analyzer = CodeAnalyzer.new("[*].each do |number|\nnumber\nend")
