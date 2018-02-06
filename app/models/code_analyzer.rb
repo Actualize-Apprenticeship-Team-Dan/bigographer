@@ -3,8 +3,8 @@ class CodeAnalyzer
   attr_reader :codes, :graph_data
   
   def initialize(codes = nil)
-    # puts codes
     if codes
+      codes = codes.gsub('puts','')
       @codes = codes.split(',')
       add_counters_to_code!
       @graph_data = []

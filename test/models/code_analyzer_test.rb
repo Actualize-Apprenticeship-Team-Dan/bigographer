@@ -76,4 +76,8 @@ class CodeAnalyzerTest < ActiveSupport::TestCase
     assert_equal [[{ x: 100, y: 20201 }, { x: 500, y: 501001 }, { x: 1000, y: 2002001 }, { x: 1500, y: 4503001 }, { x: 2000, y: 8004001 }, { x: 2500, y: 12505001 }, { x: 3000, y: 18006001 }]], code_analyzer.results
   end
 
+  test '#codes - takes puts out of code input' do
+    code_analyzer = CodeAnalyzer.new("sum = 0\n[*].each do |number|\nsum += number\nputs 'hello'\nend")
+    assert_equal "count = 0\nsum = 0\n\ncount += 1\n[*].each do |number|\n\ncount += 1\nsum += number\n\ncount += 1\n 'hello'\n\ncount += 1\nend\ncount += 1\ncount", code_analyzer.codes[0]
+  end
 end
