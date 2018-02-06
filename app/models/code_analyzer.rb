@@ -37,10 +37,12 @@ class CodeAnalyzer
       [100, 500, 1000, 1500, 2000, 2500, 3000].each do |data|
         @graph_data << {x: data, y: run_code(@code.gsub("[*]", "#{(1..data).to_a}"))}
       end
+      get_o_notation
     elsif @code.index("***")
       [100, 500, 1000, 1500, 2000, 2500, 3000].each do |data|
         @graph_data << {x: data, y: run_code(@code.gsub("***", "#{(data)}"))}
       end
+      get_o_notation
     end
 
     return @graph_data
@@ -58,6 +60,24 @@ class CodeAnalyzer
     end
   end
 
+  def get_o_notation
+    o = ''
+    y = @graph_data[3][:y] #
+    x = @graph_data[3][:x] #
+    # p y/x
+    step1 = @graph_data[2][:y] - @graph_data[1][:y]
+    step2 = @graph_data[3][:y] - @graph_data[2][:y]
+    if @graph_data[2][:y] - @graph_data[1][:y] == 0
+      o = 'o(1)'
+    elsif step1 == step2
+      o = 'o(n)'
+    elsif y / x - 2 == x #
+      o = 'o(n^2)'
+    elsif y / x - 4 == x2 #
+      o = 'o(n^3)'
+    end
+    p o
+  end
   private
   # The 'add_counters_to_code!' method implements our counting of the code's steps. We follow
   # a simplistic algorithm, and that is to set a 'count' variable before the code begins, and then
@@ -81,5 +101,6 @@ class CodeAnalyzer
     line.strip!
     line.index('#') == 0 && line.index('{') != 1
   end
+
 
 end
