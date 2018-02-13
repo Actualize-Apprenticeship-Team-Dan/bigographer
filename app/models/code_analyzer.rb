@@ -8,6 +8,7 @@ class CodeAnalyzer
       @codes = codes.split(',')
       add_counters_to_code!
       @graph_data = []
+      puts codes
     end
   end
 
@@ -33,7 +34,6 @@ class CodeAnalyzer
         end
         @graph_data << graph_data
       end
-      p @graph_data
       return @graph_data
     else
       return []

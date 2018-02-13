@@ -80,4 +80,9 @@ class CodeAnalyzerTest < ActiveSupport::TestCase
     code_analyzer = CodeAnalyzer.new("sum = 0\n[*].each do |number|\nsum += number\nputs 'hello'\nend")
     assert_equal "count = 0\nsum = 0\n\ncount += 1\n[*].each do |number|\n\ncount += 1\nsum += number\n\ncount += 1\n 'hello'\n\ncount += 1\nend\ncount += 1\ncount", code_analyzer.codes[0]
   end
+
+  # test '#codes - takes puts and print out of code input' do
+  #   code_analyzer = CodeAnalyzer.new("sum = 0\n[*].each do |number|\n  sum  = number\n  puts 'hello'\nend,sum = 0\n[*].each do |number|\n  sum  = number\n  puts 'hello'\nend")
+  #   assert_equal ["count = 0\nsum = 0\n\ncount += 1\n[*].each do |number|\n\ncount += 1\nsum += number\n\ncount += 1\n 'hello'\n\ncount += 1\nend\ncount += 1\ncount", "count = 0\nsum = 0\n\ncount += 1\n[*].each do |number|\n\ncount += 1\nsum += number\n\ncount += 1\n 'hello'\n\ncount += 1\nend\ncount += 1\ncount"], code_analyzer.codes
+  # end
 end

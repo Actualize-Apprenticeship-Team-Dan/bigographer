@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         Rails.ajax({
           url: "/api/v1/code",
           type: "POST",
-          data: `codes=${this.codes}`,
+          data: `codes=${encodeURIComponent(this.codes)}`,
           success: function(data) {
             this.results = data.results;
             this.chartData = {
