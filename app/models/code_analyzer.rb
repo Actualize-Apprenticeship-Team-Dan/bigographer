@@ -4,7 +4,6 @@ class CodeAnalyzer
   
   def initialize(codes = nil)
     if codes
-      codes = codes.gsub('puts','')
       @codes = codes.split(',')
       add_counters_to_code!
       @graph_data = []
@@ -63,6 +62,10 @@ class CodeAnalyzer
       @codes.each do |code|
         new_code = "count = 0\n"
         code.each_line do |line|
+          line.strip!
+          line = line.gsub("puts ", "")
+          line = line.gsub("p ", "")
+          line = line.gsub("print ", "")
           new_code += "#{line}\n"
           new_code += "count += 1\n" unless is_comment?(line)
         end
