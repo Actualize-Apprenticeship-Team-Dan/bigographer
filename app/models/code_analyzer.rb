@@ -8,6 +8,7 @@ class CodeAnalyzer
       @codes = codes.split(',')
       add_counters_to_code!
       @graph_data = []
+      @o = ''
     end
   end
 
@@ -26,10 +27,12 @@ class CodeAnalyzer
           [100, 500, 1000, 1500, 2000, 2500, 3000].each do |data|
             graph_data << {x: data, y: run_code(code.gsub("[*]", "#{(1..data).to_a}"))}
           end
+          # get_o_notation
         elsif code.index("***")
           [100, 500, 1000, 1500, 2000, 2500, 3000].each do |data|
             graph_data << {x: data, y: run_code(code.gsub("***", "#{(data)}"))}
           end
+          # get_o_notation
         end
         @graph_data << graph_data
       end
@@ -53,43 +56,28 @@ class CodeAnalyzer
   end
 
   def get_o_notation
-    o = ""
-    step1 = @graph_data.first[1][:y] - @graph_data.first[0][:y]
-    step2 = @graph_data.first[2][:y] - @graph_data.first[1][:y]
-    step3 = @graph_data.first[3][:y] - @graph_data.first[2][:y]
-    x = @graph_data.first[2][:x]
-    y = @graph_data.first[2][:y]
-    if step3 == step2
-      o = "o(n)"
-    elsif (y / x) == x + 2
-      o = "o(n^2)"
-    elsif y >= 1 && x 
-    # elsif (y / x == x^2) - 4
-    #   o = "o(n^3)"
-    # elsif step2 * 2 == step3 && step2 == step1
-    #   o = "o(log n)"
-    # elsif step2 * 2 == step3 && step1 * 2 == step2
-    #   o = "o(n)"
-    # elsif step2 * 4 == step3 && step1 * 2 == step2
-    #   o = "o(n log n)"
-    # elsif x^2 == step2 # == step3 && step1 * 4 == step2
-    #   o = "o(n^2)"
-    # elsif step2 * 4 == step3 && step1 * 8 == step2
-    #   o = "o(n^3)"
+    @graph_data.each do |graph|
+      o = ''
+      y = graph[3][:y] 
+      x = graph[3][:x] 
+      step1 = graph[1][:y] - graph[0][:y]
+      step2 = graph[2][:y] - graph[1][:y]
+      step3 = graph[3][:y] - graph[2][:y]
+      if graph[2][:y] - graph[1][:y] == 0
+        @o = 'o(1)'
+      elsif step1 > step2
+        @o = 'o(log n)'
+      elsif step2 == step3
+        @o = 'o(n)'
+      elsif y / x - 2 == x 
+        @o = 'o(n^2)'
+      elsif y / x - 4 == x 
+        @o = 'o(n^3)'
+      end
     end
-    o
+     return @o
   end
   
-  #=== o(log n) equation
-  # n = *
-  # count = 0
-  # if n != 1
-  #   n / 2
-  #   count += 1
-  # end
-
-  "O(log n)" = count
-
   private
   # The 'add_counters_to_code!' method implements our counting of the code's steps. We follow
   # a simplistic algorithm, and that is to set a 'count' variable before the code begins, and then

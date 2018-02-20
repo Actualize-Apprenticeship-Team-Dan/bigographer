@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       codes: [''],
       colors: ['#f87979'],
       results: [],
+      bigO: '',
       chartData: {
         
       }
@@ -34,6 +35,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
           data: `codes=${this.codes}`,
           success: function(data) {
             this.results = data.results;
+            this.bigO = data.bigO;
             this.chartData = {
               labels: data.results[0].map(point => point.x), 
               datasets: data.results.map(function(result, index) {

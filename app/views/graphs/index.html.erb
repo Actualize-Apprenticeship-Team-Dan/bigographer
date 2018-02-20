@@ -13,6 +13,7 @@
   </div>
   <div id="result">
     <p>Number Of Steps: {{ results }}</p>
+    <p>Big O: <%= CodeAnalyzer.new(@code).get_o_notation %></p>
   </div>
 
   <line-chart :chart-data="chartData" :options="options" width="1000"></line-chart>
