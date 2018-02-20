@@ -3,7 +3,6 @@ class CodeAnalyzer
   attr_reader :codes, :graph_data
   
   def initialize(codes = nil)
-    # puts codes
     if codes
       @codes = codes.split(',')
       add_counters_to_code!
@@ -33,7 +32,6 @@ class CodeAnalyzer
         end
         @graph_data << graph_data
       end
-      p @graph_data
       return @graph_data
     else
       return []
@@ -63,6 +61,7 @@ class CodeAnalyzer
       @codes.each do |code|
         new_code = "count = 0\n"
         code.each_line do |line|
+          line = remove_prints(line)
           new_code += "#{line}\n"
           new_code += "count += 1\n" unless is_comment?(line)
         end
@@ -80,6 +79,13 @@ class CodeAnalyzer
   def is_comment?(line)
     line.strip!
     line.index('#') == 0 && line.index('{') != 1
+  end
+
+  def remove_prints(line)
+    line.strip!
+    line = line.gsub("puts ", "")
+    line = line.gsub("p ", "")
+    line = line.gsub("print ", "")
   end
 
 end

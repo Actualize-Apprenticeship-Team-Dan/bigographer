@@ -76,4 +76,18 @@ class CodeAnalyzerTest < ActiveSupport::TestCase
     assert_equal [[{ x: 100, y: 20201 }, { x: 500, y: 501001 }, { x: 1000, y: 2002001 }, { x: 1500, y: 4503001 }, { x: 2000, y: 8004001 }, { x: 2500, y: 12505001 }, { x: 3000, y: 18006001 }]], code_analyzer.results
   end
 
+  test '#codes - takes puts out of code input' do
+    code_analyzer = CodeAnalyzer.new("sum = 0\n[*].each do |number|\nsum += number\nputs 'hello'\nend")
+    refute_includes code_analyzer.codes[0], 'puts '
+  end
+
+  test '#codes - takes p statement out of code input' do
+    code_analyzer = CodeAnalyzer.new("sum = 0\n[*].each do |number|\n  p \"dogs\"\nend")
+    refute_includes code_analyzer.codes[0], 'p '
+  end
+
+  test '#codes - takes print statement out of code input' do
+    code_analyzer = CodeAnalyzer.new("sum = 0\n[*].each do |number|\n  print \"dogs\"\nend")
+    refute_includes code_analyzer.codes[0], 'print '
+  end
 end
