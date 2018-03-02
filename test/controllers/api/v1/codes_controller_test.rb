@@ -26,5 +26,10 @@ class Api::V1::CodesControllerTest < ActionDispatch::IntegrationTest
     data = JSON.parse(response.body)
     assert_equal data, {"results"=>[[{"x"=>100, "y"=>201}, {"x"=>500, "y"=>1001}, {"x"=>1000, "y"=>2001}, {"x"=>1500, "y"=>3001}, {"x"=>2000, "y"=>4001}, {"x"=>2500, "y"=>5001}, {"x"=>3000, "y"=>6001}]]}
   end
-  
+
+  test "save end point" do
+    post "/api/v1/save", params: {codes: ["high"]}
+    assert_response :success
+  end
+
 end
